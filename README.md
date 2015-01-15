@@ -1,6 +1,20 @@
 # Ember-cli-reduce-computed-macros
 
-Provides the ember-rcp computed macros to be used in conjunction with git://github.com/patricklx/ember-cli-reduce-computed
+Provides the ember-rcp computed macros to be used in conjunction with [ember-cli-reduce-computed](github.com/patricklx/ember-cli-reduce-computed)
+
+## Addon Install
+
+install `ember-cli-reduce-computed` first.
+
+`ember install:addon patricklx/ember-cli-reduce-computed-macros`
+
+then in your app:
+
+`import install from 'ember-cli-reduce-computed-macros':`
+`install(true/false)`
+
+if you pass `true` to the install function it will overwrite the Ember.computed.* functions.
+If not, they will be installed at `Ember.rcp.*` and `Ember.acp.*`
 
 ##Changes:
 - The `filter` function uses the new callback `propertyChanged`
