@@ -5,6 +5,7 @@ Provides the ember-rcp computed macros to be used in conjunction with git://gith
 ##Changes:
 - The `filter` function uses the new callback `propertyChanged`
 - only `filter` and `map` calculate indexes for property changes 
+- indexes are computed immediatly after the array changed. Therfore adding/removing/replacing many items should be done as a bulk operation
 
 ## Installation
 
