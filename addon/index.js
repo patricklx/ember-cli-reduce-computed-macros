@@ -46,7 +46,7 @@ var install = function (replace) {
       Ember.computed[name] = acp[name];
     }
     for (name in rcp) {
-      Ember.computed[name] = acp[name];
+      Ember.computed[name] = rcp[name];
     }
   }
 };
