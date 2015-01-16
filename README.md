@@ -1,6 +1,6 @@
 # Ember-cli-reduce-computed-macros
 
-Provides the ember-rcp computed macros to be used in conjunction with [ember-cli-reduce-computed](github.com/patricklx/ember-cli-reduce-computed)
+Provides the ember-rcp computed macros to be used in conjunction with [ember-cli-reduce-computed](http://github.com/patricklx/ember-cli-reduce-computed)
 
 ## Addon Install
 
