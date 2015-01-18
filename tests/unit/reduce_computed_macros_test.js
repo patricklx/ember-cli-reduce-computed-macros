@@ -24,9 +24,6 @@ setProperties = Ember.setProperties;
 Mixin = Ember.Mixin;
 forEach = Ember.EnumerableUtils.forEach;
 
-import {install} from 'ember-cli-reduce-computed';
-install(true);
-
 import {
   rcp,
   acp
