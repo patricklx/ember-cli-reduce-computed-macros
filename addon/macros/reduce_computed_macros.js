@@ -3,11 +3,7 @@
 @submodule ember-runtime
 */
 import Ember from 'ember';
-import {install} from 'ember-cli-reduce-computed';
-install(true);
-
-var arrayComputed = Ember.arrayComputed;
-var reduceComputed = Ember.reduceComputed;
+import {arrayComputed, reduceComputed} from 'ember-cli-reduce-computed';
 
 var get = Ember.get;
 var isArray = Ember.isArray;
