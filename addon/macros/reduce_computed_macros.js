@@ -16,6 +16,7 @@ var addObserver = Ember.addObserver;
 var SubArray = Ember.SubArray;
 var keys = Ember.keys;
 var compare = Ember.compare;
+var assert = Ember.assert;
 
 var a_slice = [].slice;
 
@@ -284,7 +285,7 @@ export function filter(dependentKey, callback, needIndex) {
     needIndex: true,
 
     initialize: function (array, changeMeta, instanceMeta) {
-      instanceMeta.filteredArrayIndexes = new Ember.SubArray();
+      instanceMeta.filteredArrayIndexes = new SubArray();
       instanceMeta.isInArray = {};
     },
 
@@ -294,7 +295,7 @@ export function filter(dependentKey, callback, needIndex) {
 
       if (match) {
         array.insertAt(filterIndex, item);
-        instanceMeta.isInArray[Ember.guidFor(item)] = true;
+        instanceMeta.isInArray[guidFor(item)] = true;
       }
 
       return array;
@@ -305,7 +306,7 @@ export function filter(dependentKey, callback, needIndex) {
 
       if (filterIndex > -1) {
         array.removeAt(filterIndex);
-        delete instanceMeta.isInArray[Ember.guidFor(item)];
+        delete instanceMeta.isInArray[guidFor(item)];
       }
 
       return array;
@@ -313,7 +314,7 @@ export function filter(dependentKey, callback, needIndex) {
 
     propertyChanged: function (array, item, changeMeta, instanceMeta) {
       var match = !!callback.call(this, item, changeMeta.index), filterIndex;
-      var inArray = Ember.guidFor(item) in instanceMeta.isInArray;
+      var inArray = guidFor(item) in instanceMeta.isInArray;
 
       if ((!match || !inArray) && (match || inArray)) {
         changeMeta.property.callbacks.removedItem.call(this, array, item, changeMeta, instanceMeta);
@@ -323,7 +324,7 @@ export function filter(dependentKey, callback, needIndex) {
     }
   };
 
-  return Ember.arrayComputed(dependentKey, options);
+  return arrayComputed(dependentKey, options);
 }
 
 /**
@@ -709,7 +710,7 @@ function binarySearch(array, item, low, high) {
   on the sort property array or callback function
 */
 export function sort(itemsKey, sortDefinition) {
-  Ember.assert('Ember.computed.sort requires two arguments: an array key to sort and ' +
+  assert('Ember.computed.sort requires two arguments: an array key to sort and ' +
     'either a sort properties key or sort function', arguments.length === 2);
 
   if (typeof sortDefinition === 'function') {
@@ -765,7 +766,7 @@ function propertySort(itemsKey, sortPropertiesKey) {
         var sortPropertyAscending = instanceMeta.sortPropertyAscending = {};
         var sortProperty, idx, asc;
 
-        Ember.assert('Cannot sort: \'' + sortPropertiesKey + '\' is not an array.',
+        assert('Cannot sort: \'' + sortPropertiesKey + '\' is not an array.',
                      isArray(sortPropertyDefinitions));
 
         changeMeta.property.clearItemPropertyKeys(itemsKey);
