@@ -1,5 +1,5 @@
 import Ember from "ember";
-var map, get, getWithDefault, set, metaFor, run, observer, keys, EmberObject, ComputedProperty, computed, arrayComputed, reduceComputed, ArrayProxy, SubArray, setProperties, ObjectProxy, Mixin, beginPropertyChanges, endPropertyChanges, forEach, addObserver;
+var map, get, getWithDefault, set, metaFor, run, observer, keys, EmberObject, ComputedProperty, computed, ArrayProxy, SubArray, setProperties, ObjectProxy, Mixin, beginPropertyChanges, endPropertyChanges, forEach, addObserver;
 map = Ember.EnumerableUtils.map;
 get = Ember.get;
 getWithDefault = Ember.getWithDefault;
@@ -13,8 +13,6 @@ ObjectProxy = Ember.ObjectProxy;
 ComputedProperty = Ember.ComputedProperty;
 computed = Ember.computed;
 
-arrayComputed = Ember.arrayComputed;
-reduceComputed = Ember.reduceComputed;
 ArrayProxy = Ember.ArrayProxy;
 SubArray = Ember.SubArray;
 addObserver = Ember.addObserver;
@@ -1150,7 +1148,9 @@ test("sorts correctly as only one property changes", function(){
     sorted = obj.get('sortedItems');
   });
   deepEqual(sorted.mapBy('name'), ['A', 'B', 'C', 'D'], "initial");
-  obj.get('items').objectAt(3).set('count', 2);
+  run(function() {
+    obj.get('items').objectAt(3).set('count', 2);
+  });
   run(function() {
     sorted = obj.get('sortedItems');
   });
@@ -1192,9 +1192,11 @@ test("sorts correctly when there are concurrent changes", function(){
     sorted = obj.get('sortedItems');
   });
   deepEqual(sorted.mapBy('name'), ['A', 'B', 'C', 'D'], "initial");
-  Ember.changeProperties(function(){
-    obj.get('items').objectAt(1).set('count', 5);
-    obj.get('items').objectAt(2).set('count', 6);
+  run(function() {
+    Ember.changeProperties(function(){
+      obj.get('items').objectAt(1).set('count', 5);
+      obj.get('items').objectAt(2).set('count', 6);
+    });
   });
   run(function() {
     sorted = obj.get('sortedItems');
