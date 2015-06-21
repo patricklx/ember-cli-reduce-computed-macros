@@ -317,7 +317,9 @@ export function filter(dependentKey, callback, needIndex) {
       var inArray = guidFor(item) in instanceMeta.isInArray;
 
       if ((!match || !inArray) && (match || inArray)) {
-        changeMeta.property.callbacks.removedItem.call(this, array, item, changeMeta, instanceMeta);
+        try{
+          changeMeta.property.callbacks.removedItem.call(this, array, item, changeMeta, instanceMeta);
+        } catch(e) {}
         changeMeta.property.callbacks.addedItem.call(this, array, item, changeMeta, instanceMeta);
       }
       return array;
@@ -794,7 +796,7 @@ function propertySort(itemsKey, sortPropertiesKey) {
 
       function updateSortProperties(propertyName) {
         setupSortProperties.call(this);
-        changeMeta.property.recomputeOnce.call(this, propertyName);
+        changeMeta.property.recomputeOnce.call(this, propertyName, changeMeta.property);
       }
 
       addObserver(this, sortPropertiesKey, updateSortPropertiesOnce);
